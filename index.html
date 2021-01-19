@@ -24,8 +24,6 @@
 
     <script>
 
-        var rfid;
-
         var awards = [
 
             { id: 'F98BAEB9', name: 'Dyson 二合一智慧涼風空氣清淨機', type: '特獎' },
@@ -64,7 +62,9 @@
 
         ];
 
-        boardReady({device: 'Je87Y'}, function (board) {
+        var deviceID = 'Je87Y', rfid;
+
+        boardReady({device: deviceID}, function (board) {
             board.systemReset();
             board.samplingInterval = 2000;
             rfid = getRFID(board);
