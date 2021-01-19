@@ -4,27 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>M'Orange 尾牙抽獎</title>
+    <link rel="stylesheet" type="text/css" href="css/reset.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
     <script src="./js/libs/jquery-1.9.1.min.js"></script>
     <script src="./js/libs/webduino-all.min.js"></script>
     <script src="./js/libs/webduino-blockly.js"></script>
     <script src="./js/libs/firebase.js"></script>
     <script src="./js/libs/runtime.min.js"></script>
-    <style>
-
-        #result {
-
-        }
-
-    </style>
 </head>
 <body>
 
-    <div id="result">N/A</div>
-    <div id="uid">N/A</div>
+    <main>
+
+        <div id="records" class="pos-a">
+            <div id="result">N/A</div>
+            <div id="uid">N/A</div>
+            <button id="reset">清空</button>
+            <button id="random">隨機</button>
+        </div>
+
+        <h1 class="logo text-hide pos-a">M'Orange 橘子磨坊</h1>
+        <p class="year pos-a">2020</p>
+
+        <div id="award" class="pos-a">
+            <div>
+                <p class="type">特獎</p>
+                <p class="name">Dyson 二合一智慧涼風空氣清淨機</p>
+            </div>
+        </div>
+    
+    </main>
 
     <script>
 
         var awards = [
+            
+            { id: '67808AB2', name: '測試測試測試', type: '無獎' },
 
             { id: 'F98BAEB9', name: 'Dyson 二合一智慧涼風空氣清淨機', type: '特獎' },
             { id: 'E9D7AAB9', name: 'Dyson 新一代吹風機', type: '頭獎' },
@@ -80,6 +95,40 @@
                 }
             });
         });
+
+        $(window).keydown(function(e) {
+            console.log(e.keyCode);
+            switch(e.keyCode) {
+                case 67: // 按 C 鍵清空獎項
+                    clearAward();
+                    break;
+                case 81: // 按 Q 鍵關閉測試面板
+                    $('#records').hide();
+                    break;
+                case 84: // 按 T 鍵開啟測試面板
+                    $('#records').show();
+                    break;
+            }
+        });
+
+        $('#reset').click(function() {
+            clearAward();
+        });
+
+        $('#random').click(function() {
+            var random = getRandom(awards.length);
+            var index  = random - 1;
+            console.log(awards[index]);
+            $('#award .type').text(awards[index].type);
+            $('#award .name').text(awards[index].name);
+        });
+
+        function getRandom(value) { return Math.floor(Math.random() * value) + 1; }
+        function clearAward() {
+            $('#result').text('N/A');
+            $('#uid').text('N/A');
+            $('#award .type, #award .name').text('');
+        }
 
     </script>
 
