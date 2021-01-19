@@ -5,7 +5,7 @@ M'Orange 於 2021/01/22 的尾牙抽獎裝置，使用 Arduino UNO + Webduino Fl
 ---
 ## 變數說明
 
-awards (陣列，獎項清單)
+awards (Array，獎項清單)
 ```
 var awards = [
     {
@@ -16,7 +16,8 @@ var awards = [
     // ... (以下省略)
 ]
 ```
-deviceID (字串，裝置 ID)
+deviceID (String，裝置 ID)  
+animated (Boolean，是否還在執行動態，若為 true 感應及按鈕將無反應)
 
 ---
 ## 快捷鍵
