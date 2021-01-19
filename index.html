@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>M'Orange 尾牙抽獎</title>
+    <script src="https://blockly.webduino.io/lib/jquery-1.9.1.min.js"></script>
+    <script src="https://blockly.webduino.io/components/webduino-js/dist/webduino-all.min.js"></script>
+    <script src="https://blockly.webduino.io/lib/webduino-blockly.js"></script>
+    <script src="https://blockly.webduino.io/lib/firebase.js"></script>
+    <script src="https://blockly.webduino.io/lib/runtime.min.js"></script>
+    <style>
+
+        #result {
+
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="result">N/A</div>
+    <div id="uid">N/A</div>
+
+    <script>
+
+        var rfid;
+
+        var awards = [
+
+            { id: 'F98BAEB9', name: 'Dyson 二合一智慧涼風空氣清淨機', type: '特獎' },
+            { id: 'E9D7AAB9', name: 'Dyson 新一代吹風機', type: '頭獎' },
+            { id: '99C8BDB9', name: 'Dyson 新一代吹風機', type: '頭獎' },
+            { id: '4915C9B9', name: 'Dyson 新一代吹風機', type: '頭獎' },
+            { id: 'F925CAB9', name: 'Dyson 新一代吹風機', type: '頭獎' },
+            { id: 'E931CAB9', name: 'Dyson 新一代吹風機', type: '頭獎' },
+            { id: '093CB1B9', name: 'Switch 動物森友會特別版限量主機', type: '貳獎' },
+            { id: 'C9B9E1B9', name: 'Switch 動物森友會特別版限量主機', type: '貳獎' },
+            { id: 'D952BDB9', name: 'Switch 動物森友會特別版限量主機', type: '貳獎' },
+            { id: '09EABAB8', name: 'Switch 動物森友會特別版限量主機', type: '貳獎' },
+            { id: 'A93FBAB8', name: 'Apple Watch', type: '參獎' },
+            { id: 'C97CC9B9', name: 'Apple Watch', type: '參獎' },
+            { id: '392ABFB9', name: 'Apple Watch', type: '參獎' },
+            { id: '498ABAB8', name: 'Apple Watch', type: '參獎' },
+            { id: 'D9DAACB9', name: 'Apple Watch', type: '參獎' },
+            { id: '796DACB9', name: 'Apple Watch', type: '參獎' },
+            { id: 'F96FC7B8', name: 'Apple Watch', type: '參獎' },
+            { id: '3907E2B9', name: '6,000', type: '紅包獎' },
+            { id: '5989CAB9', name: '6,000', type: '紅包獎' },
+            { id: '2968E0B9', name: '6,000', type: '紅包獎' },
+            { id: '4921C9B9', name: '6,000', type: '紅包獎' },
+            { id: '59FA13B9', name: '6,000', type: '紅包獎' },
+            { id: '29ABAAB9', name: '6,000', type: '紅包獎' },
+            { id: 'C979C8B8', name: '6,000', type: '紅包獎' },
+            { id: '491EB3B9', name: '6,000', type: '紅包獎' },
+            { id: '2907E1B9', name: '6,000', type: '紅包獎' },
+            { id: 'D9ABE1B9', name: '6,000', type: '紅包獎' },
+            { id: 'E9D4BFB9', name: '3,800', type: '紅包獎' },
+            { id: 'C963E2B9', name: '3,800', type: '紅包獎' },
+            { id: '9966C8B9', name: '3,800', type: '紅包獎' },
+            { id: 'B92FBEB9', name: '3,800', type: '紅包獎' },
+            { id: '19DBBCB8', name: '3,800', type: '紅包獎' },
+            { id: '2962BAB8', name: '3,800', type: '紅包獎' }
+
+        ];
+
+        boardReady({device: 'Je87Y'}, function (board) {
+            board.systemReset();
+            board.samplingInterval = 2000;
+            rfid = getRFID(board);
+            rfid.read();
+            rfid.on("enter",function(_uid){
+                rfid._uid = _uid;
+                document.getElementById("uid").innerHTML = rfid._uid;
+                var result = awards.filter(function(item) { return item.id == rfid._uid; });
+                if (result.length != 0) {
+                    document.getElementById("result").innerHTML = result[0].type + ': ' + result[0].name;
+                } else {
+                    document.getElementById("result").innerHTML = rfid._uid + ' 未登錄';
+                }
+            });
+        });
+
+    </script>
+
+</body>
+</html>
