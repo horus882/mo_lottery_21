@@ -77,7 +77,7 @@
 
         ];
 
-        var deviceID = 'Je87Y', rfid;
+        var deviceID = 'Je87Y', rfid, animated = false;
 
         boardReady({device: deviceID}, function (board) {
             board.systemReset();
@@ -111,23 +111,33 @@
             }
         });
 
-        $('#reset').click(function() {
-            clearAward();
-        });
+        $('#reset').click(function() { clearAward(); });
 
         $('#random').click(function() {
             var random = getRandom(awards.length);
             var index  = random - 1;
-            console.log(awards[index]);
-            $('#award .type').text(awards[index].type);
-            $('#award .name').text(awards[index].name);
+            showAward(awards[index])
         });
 
         function getRandom(value) { return Math.floor(Math.random() * value) + 1; }
+
+        function showAward(award) {
+            if (animated == true) return false;
+            animated = true;
+            $('#award').fadeOut(750, function() {
+                $('#award .type').text(award.type);
+                $('#award .name').text(award.name);
+                $('#award').fadeIn(750, function() {
+                    animated = false;
+                });
+            });
+            console.log(award);
+        }
+
         function clearAward() {
-            $('#result').text('N/A');
-            $('#uid').text('N/A');
+            $('#result, #uid').text('N/A');
             $('#award .type, #award .name').text('');
+            animated = false;
         }
 
     </script>
