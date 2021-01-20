@@ -39,7 +39,7 @@
 
         var awards = [
             
-            { id: '67808AB2', name: '測試測試測試', type: '無獎' },
+            { id: '67808AB2', name: 'TestTestTest', type: '測試獎' },
 
             { id: 'F98BAEB9', name: 'Dyson 二合一智慧涼風空氣清淨機', type: '特獎' },
             { id: 'E9D7AAB9', name: 'Dyson 新一代吹風機', type: '頭獎' },
@@ -90,6 +90,7 @@
                 var result = awards.filter(function(item) { return item.id == rfid._uid; });
                 if (result.length != 0) {
                     document.getElementById("result").innerHTML = result[0].type + ': ' + result[0].name;
+                    showAward(result[0]);
                 } else {
                     document.getElementById("result").innerHTML = rfid._uid + ' 未登錄';
                 }
@@ -116,7 +117,7 @@
         $('#random').click(function() {
             var random = getRandom(awards.length);
             var index  = random - 1;
-            showAward(awards[index])
+            showAward(awards[index]);
         });
 
         function getRandom(value) { return Math.floor(Math.random() * value) + 1; }
@@ -125,13 +126,24 @@
             if (animated == true) return false;
             animated = true;
             $('#award').fadeOut(750, function() {
-                $('#award .type').text(award.type);
-                $('#award .name').text(award.name);
+                $('#award').removeClass('show');
+                $('#award .type').html(splitString(award.type));
+                $('#award .name').html(splitString(award.name));
                 $('#award').fadeIn(750, function() {
+                    $('#award').addClass('show');
                     animated = false;
                 });
             });
             console.log(award);
+        }
+
+        function splitString(text) {
+            var textArray = text.split('');
+            var textHTML  = '';
+            for (i = 0; i < textArray.length; i++) {
+                textHTML += '<span style="transition-delay: ' + (i * 0.1) + 's; transform: translate(' + (getRandom(500) - 250) + 'px, ' + (getRandom(500) - 250) + 'px)">' + textArray[i] + '</span>';
+            }
+            return textHTML;
         }
 
         function clearAward() {
