@@ -141,7 +141,7 @@
             var textArray = text.split('');
             var textHTML  = '';
             for (i = 0; i < textArray.length; i++) {
-                textHTML += '<span style="transition-delay: ' + (i * 0.1) + 's; transform: translate(' + (getRandom(500) - 250) + 'px, ' + (getRandom(500) - 250) + 'px)">' + textArray[i] + '</span>';
+                textHTML += '<span style="transition-delay: ' + (i * 0.1) + 's; transform: scale(0.5) translate(' + (getRandom(500) - 250) + 'px, ' + (getRandom(500) - 250) + 'px)">' + textArray[i] + '</span>';
             }
             return textHTML;
         }
