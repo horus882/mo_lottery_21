@@ -17,8 +17,8 @@ var awards = [
 ]
 ```
 deviceID (String，裝置 ID)  
-animated (Boolean，是否還在執行動態，若為 true 感應及按鈕將無反應)
-fortuneId (String，顯示星座運勢的專用感應 ID)
+animated (Boolean，是否還在執行動態，若為 true 感應及按鈕將無反應)  
+fortuneId (String，顯示星座運勢的專用感應 ID)  
 constellation (Array，12 星座)
 
 ---
