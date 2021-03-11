@@ -39,7 +39,7 @@
 
         var awards = [
             
-            { id: '67808AB2', name: 'TestTestTest', type: '測試獎' },
+            { id: '41422303', name: '今天可能會有意外之財喔～', type: '本日運勢' },
             { id: 'F98BAEB9', name: 'Dyson 二合一智慧涼風空氣清淨機', type: '特獎' },
             { id: '498ABAB8', name: 'Dyson 二合一智慧涼風空氣清淨機', type: '特獎' },
             { id: '4915C9B9', name: 'Dyson 新一代吹風機', type: '頭獎' },
@@ -71,7 +71,9 @@
 
         ];
 
-        var deviceID = 'Je87Y', rfid, animated = false;
+        var constellation = ['摩羯座', '水瓶座', '雙魚座', '牧羊座', '金牛座', '雙子座', '巨蟹座', '獅子座', '處女座', '天秤座', '天蠍座', '射手座'];
+
+        var deviceID = 'Je87Y', rfid, animated = false, fortuneId = '41422303';
 
         boardReady({device: deviceID}, function (board) {
             board.systemReset();
@@ -119,10 +121,15 @@
         function showAward(award) {
             if (animated == true) return false;
             animated = true;
+            var type = award.type,
+                name = award.name;
+
+            if (award.id == fortuneId) { name = constellation[getRandom(12) - 1] + name; }
+            
             $('#award').fadeOut(750, function() {
                 $('#award').removeClass('show');
-                $('#award .type').html(splitString(award.type));
-                $('#award .name').html(splitString(award.name));
+                $('#award .type').html(splitString(type));
+                $('#award .name').html(splitString(name));
                 $('#award').fadeIn(750, function() {
                     $('#award').addClass('show');
                     animated = false;
